@@ -197,6 +197,14 @@ class CalendarReports extends Component {
 	
 }
 
+	/**
+	* Navigate to DCR & SIR
+	*/
+	navigateTo(event) {
+		if(event.URL) {
+			window.location.href = decodeURI(event.URL);
+		}
+	}
 	
 	/**
 	* Render react
@@ -215,6 +223,7 @@ class CalendarReports extends Component {
 				  messages={this.state.defaultMessages}
 				  culture={this.state.defaultCulture}
 				  style={{ height: "90vh" }}
+				  onSelectEvent={this.navigateTo}
 				  eventPropGetter={event => ({
 					style: {
 					  backgroundColor: event.color,
