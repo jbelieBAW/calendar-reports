@@ -134,6 +134,8 @@ class CalendarReports extends Component {
 		console.log('read events', elementsArray);
 		var $this = this;
 		
+		var eventsArray = [];
+		
 		elementsArray.each(function() {
 			this.event = new Object;
 			var my_self = this;
@@ -157,7 +159,7 @@ class CalendarReports extends Component {
 				console.log('event', this.event);
 				eventsArray.push(this.event); 		
 		});
-		console.log('eventsarray', this.eventsArray);
+		console.log('eventsarray', eventsArray);
 		
 		this.setState({
             defaultCulture: this.currentCulture,
