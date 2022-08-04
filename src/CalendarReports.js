@@ -81,9 +81,7 @@ class CalendarReports extends Component {
             defaultDeleteButtonText: '',
             events: []
         };
-		this.eventsObject = {};
 		this.eventsArray = [];
-		this.eventsArrayGroupByDate = [];
 		this.currentCulture = '';
 		this.currentDefaultMessages = {};
 		this.localizer = momentLocalizer(moment);
@@ -118,9 +116,7 @@ class CalendarReports extends Component {
             this.currentDefaultMessages = defaultMessages_en;
         }
 
-		this.readEvents('sir',  $('div[name="SIRList"] .grid-body .grid-body-content tr').not('.empty-grid'));
-		this.readEvents('dcr',  $('div[name="DCRList"] .grid-body .grid-body-content tr').not('.empty-grid'));
-		this.groupByReportTypeAndDate();
+		
 
 		this.setState({
             defaultCulture: this.currentCulture,
@@ -133,66 +129,40 @@ class CalendarReports extends Component {
     }
 
 
-	groupByReportTypeAndDate() {
-		let $this = this;
-		Object.entries($this.eventsObject).map(([type, object]) => (
-			Object.entries(object).map(([key, event]) => {
-				$this.eventsArray.push(event);
-			})
-		));
+	refreshEvents() {
+		this.readEvents($('div[name="ReportList"] .grid-body .grid-body-content tr').not('.empty-grid'));
 	}
 	
-
 	/**
 	* Read events from HTML from k2 and add events to react-calendar
 	* @eventType : tasks, dcr, sir
 	* @elementsArray : html element
 	*/
-    readEvents(eventType, elementsArray) {
+    readEvents(elementsArray) {
 		var $this = this;
-		if (!$this.eventsObject[eventType]) {
-			$this.eventsObject[eventType] = {};
-		}
+		
 		elementsArray.each(function() {
 			this.event = new Object;
 			var my_self = this;
-			my_self.event.type = eventType.toUpperCase();
-			let date = $("td", this).eq("2").data("options").value;
 
-			if (!$this.eventsObject[eventType][date]) {
 				$(this).children("td").each(function (idx) {
 					my_self.event.allDay = true;
 			
 					switch (idx) {
-						//ID
+						//TYPE
 						case 0:
-							my_self.event.id = $(this).data("options").value;
+							my_self.event.type = $(this).data("options").value;
 							break;
-						//NUMBER
+						//DATE
 						case 1:
-							my_self.event.title = $(this).data("options").value;
-							my_self.event.number = $(this).data("options").value;
-							break;
-						// DATE
-						case 2:
 							my_self.event.date = $(this).data("options").value;
-							my_self.event.start = $(this).data("options").value;
-							my_self.event.end = $(this).data("options").value;
-							break;
-						//URL
-						case 3:
-							my_self.event.URL = $(this).data("options").value;
-							break;
-						//Color
-						case 4:
-							my_self.event.color	 = $(this).data("options").value;
 							break;
 						default:
 						console.log("Unbound value");
 					}	
 				});
-				$this.eventsObject[eventType][date] = this.event; 
-			}				
+				
+				eventsArray.push(this.event); 		
 		});
 	
 }
@@ -204,6 +174,22 @@ class CalendarReports extends Component {
 		if(event.URL) {
 			window.location.href = decodeURI(event.URL);
 		}
+	}
+	
+	/**
+	* Event - when user change calendar range
+	*/
+	onRangeChange = (event) => {
+		console.log('range change', event);
+		let dateStart = event['start'].format('yyyy-MM-dd');
+		$("*[name='com.dcr.CalendarReportListView.date_start']").html(dateStart);
+
+		
+		let dateEnd = event['end'].format('yyyy-MM-dd');
+		$("[name='com.dcr.CalendarReportListView.date_start']").html(dateEnd.format('yyyy-MM-dd'));
+		
+
+		document.getElementsByName("com.dcr.CalendarReportListView.button.refresh")[0].click();
 	}
 	
 	/**
@@ -224,6 +210,7 @@ class CalendarReports extends Component {
 				  culture={this.state.defaultCulture}
 				  style={{ height: "90vh" }}
 				  onSelectEvent={this.navigateTo}
+				  onRangeChange={this.onRangeChange}
 				  eventPropGetter={event => ({
 					style: {
 					  backgroundColor: event.color,
