@@ -116,8 +116,7 @@ class CalendarReports extends Component {
             this.currentDefaultMessages = defaultMessages_en;
         }
 
-		
-
+		this.refreshEvents();
 		
     }
 
@@ -132,6 +131,7 @@ class CalendarReports extends Component {
 	* @elementsArray : html element
 	*/
     readEvents(elementsArray) {
+		console.log('read events', elementsArray);
 		var $this = this;
 		
 		elementsArray.each(function() {
@@ -154,10 +154,11 @@ class CalendarReports extends Component {
 						console.log("Unbound value");
 					}	
 				});
-				
+				console.log('event', this.event);
 				eventsArray.push(this.event); 		
 		});
-	
+		console.log('eventsarray', this.eventsArray);
+		
 		this.setState({
             defaultCulture: this.currentCulture,
             defaultMessages: this.currentDefaultMessages,
