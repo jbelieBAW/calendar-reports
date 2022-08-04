@@ -118,14 +118,7 @@ class CalendarReports extends Component {
 
 		
 
-		this.setState({
-            defaultCulture: this.currentCulture,
-            defaultMessages: this.currentDefaultMessages,
-            events: this.eventsArray,
-            agenda: {
-                event: Event
-            }
-        });
+		
     }
 
 
@@ -165,7 +158,15 @@ class CalendarReports extends Component {
 				eventsArray.push(this.event); 		
 		});
 	
-}
+		this.setState({
+            defaultCulture: this.currentCulture,
+            defaultMessages: this.currentDefaultMessages,
+            events: this.eventsArray,
+            agenda: {
+                event: Event
+            }
+        });
+	}
 
 	/**
 	* Navigate to DCR & SIR
