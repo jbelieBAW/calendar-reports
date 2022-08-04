@@ -134,13 +134,12 @@ class CalendarReports extends Component {
 		console.log('read events', elementsArray);
 		var $this = this;
 		
-		var eventsArray = [];
 		
 		elementsArray.each(function() {
 			this.event = new Object;
 			var my_self = this;
 
-				$(this).children("td").each(function (idx) {
+			$(this).children("td").each(function (idx) {
 					my_self.event.allDay = true;
 			
 					switch (idx) {
@@ -157,9 +156,10 @@ class CalendarReports extends Component {
 					}	
 				});
 				console.log('event', this.event);
-				eventsArray.push(this.event); 		
+				$this.eventsArray.push(this.event); 		
 		});
-		console.log('eventsarray', eventsArray);
+		console.log('eventsarray', $this.eventsArray);
+		console.log('this', this);
 		
 		this.setState({
             defaultCulture: this.currentCulture,
@@ -190,7 +190,7 @@ class CalendarReports extends Component {
 
 		
 		let dateEnd = event['end'].format('yyyy-MM-dd');
-		$("[name='com.dcr.CalendarReportListView.date_start']").html(dateEnd.format('yyyy-MM-dd'));
+		$("[name='com.dcr.CalendarReportListView.date_end']").html(dateEnd);
 		
 
 		document.getElementsByName("com.dcr.CalendarReportListView.button.refresh")[0].click();
