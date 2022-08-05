@@ -131,7 +131,6 @@ class CalendarReports extends Component {
 	* @elementsArray : html element
 	*/
     readEvents(elementsArray) {
-		console.log('read events', elementsArray);
 		var $this = this;
 		
 		
@@ -164,11 +163,8 @@ class CalendarReports extends Component {
 						console.log("Unbound value");
 					}	
 				});
-				console.log('event', this.event);
 				$this.eventsArray.push(this.event); 		
 		});
-		console.log('eventsarray', $this.eventsArray);
-		console.log('this', this);
 		
 		this.setState({
             defaultCulture: this.currentCulture,
@@ -193,7 +189,6 @@ class CalendarReports extends Component {
 	* Event - when user change calendar range
 	*/
 	onRangeChange = (event) => {
-		console.log('range change', event);
 		let dateStart = event['start'].format('yyyy-MM-dd');
 		$("*[name='com.dcr.CalendarReportListView.date_start']").html(dateStart);
 
@@ -214,6 +209,9 @@ class CalendarReports extends Component {
 		
         return (
            <div className="App">
+				<div className="dcc-tasks-loader">
+					<div className="dcc-spinner"></div>
+				</div>
 				<Calendar
 				  defaultDate={moment().toDate()}
 				  defaultView="month"
