@@ -138,18 +138,23 @@ class CalendarReports extends Component {
 		elementsArray.each(function() {
 			this.event = new Object;
 			var my_self = this;
+			var i = 0 
 
 			$(this).children("td").each(function (idx) {
 					my_self.event.allDay = true;
-			
+					my_self.event.id = i++;
+					
 					switch (idx) {
 						//TYPE
 						case 0:
 							my_self.event.type = $(this).data("options").value;
+							my_self.event.title = $(this).data("options").value;
 							break;
 						//DATE
 						case 1:
 							my_self.event.date = $(this).data("options").value;
+							my_self.event.start = $(this).data("options").value;
+							my_self.event.end = $(this).data("options").value;
 							break;
 						default:
 						console.log("Unbound value");
