@@ -164,7 +164,7 @@ class CalendarReports extends Component {
 		this.setState({
             defaultCulture: this.currentCulture,
             defaultMessages: this.currentDefaultMessages,
-            events: eventsArray,
+            events: $this.eventsArray,
             agenda: {
                 event: Event
             }
