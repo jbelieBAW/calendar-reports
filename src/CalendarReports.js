@@ -123,6 +123,17 @@ class CalendarReports extends Component {
 
 	refreshEvents() {
 		this.readEvents($('div[name="ReportList"] .grid-body .grid-body-content tr').not('.empty-grid'));
+		document.getElementsByClassName('dcc-tasks-loader')[0].style.display = 'none';
+	}
+	
+	startLoadingStatus() {
+		this.eventsArray = [];
+		this.setState({
+			defaultCulture: this.currentCulture,
+            defaultMessages: this.currentDefaultMessages,
+            events : []
+		});
+		document.getElementsByClassName('dcc-tasks-loader')[0].style.display = 'block';
 	}
 	
 	/**
