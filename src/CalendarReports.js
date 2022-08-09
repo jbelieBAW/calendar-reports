@@ -170,6 +170,9 @@ class CalendarReports extends Component {
 						case 2:
 							my_self.event.color = $(this).data("options").value;
 							break;
+						//URL
+						case 3:
+							my_self.event.URL = $(this).data("options").value;
 						default:
 						console.log("Unbound value");
 					}	
