@@ -173,10 +173,12 @@ class CalendarReports extends Component {
 						//URL
 						case 3:
 							my_self.event.URL = $(this).data("options").value;
+							break;
 						default:
 						console.log("Unbound value");
 					}	
 				});
+				console.log('event', this.event);
 				$this.eventsArray.push(this.event); 		
 		});
 		
@@ -194,6 +196,7 @@ class CalendarReports extends Component {
 	* Navigate to DCR & SIR
 	*/
 	navigateTo(event) {
+		console.log('navigate', event.URL);
 		if(event.URL) {
 			window.location.href = decodeURI(event.URL);
 		}
