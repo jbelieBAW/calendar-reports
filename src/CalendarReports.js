@@ -178,7 +178,6 @@ class CalendarReports extends Component {
 						console.log("Unbound value");
 					}	
 				});
-				console.log('event', this.event);
 				$this.eventsArray.push(this.event); 		
 		});
 		
@@ -196,7 +195,6 @@ class CalendarReports extends Component {
 	* Navigate to DCR & SIR
 	*/
 	navigateTo(event) {
-		console.log('navigate', event.URL);
 		if(event.URL) {
 			window.location.href = decodeURI(event.URL);
 		}
